@@ -1,0 +1,37 @@
+{
+	"name": "node-red-contrib-denon-avr",
+	"version": "0.0.1",
+	"description": "Denon AVR integration for Node-RED",
+	"main": "none",
+	"repository": "https://github.com/ChristopherHaws/node-red-contrib-denon-avr.git",
+	"homepage": "https://github.com/ChristopherHaws/node-red-contrib-denon-avr#readme",
+	"bugs": {
+		"url": "https://github.com/ChristopherHaws/node-red-contrib-denon-avr/issues"
+	},
+	"author": "ChristopherHaws",
+	"license": "MIT",
+	"private": false,
+	"scripts": {
+		"clean": "shx rm -rf dist",
+		"build": "npm run clean && npm run build:ts && npm run copy:html && npm run copy:icons",
+		"build:ts": "tsc",
+		"copy:html": "copyfiles -f src/nodes/*.html dist/nodes",
+		"copy:icons": "copyfiles -f src/nodes/icons/* dist/nodes/icons",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"pub": "npm run clean && npm run build && npm publish --registry https://registry.npmjs.org/"
+	},
+	"keywords": [
+		"node-red"
+	],
+	"node-red": {
+		"nodes": {
+			"denon-in": "dist/denon-in.js"
+		}
+	},
+	"devDependencies": {
+		"@types/node": "^14.11.4",
+		"copyfiles": "^2.4.0",
+		"ts-node": "^9.0.0",
+		"typescript": "^4.0.3"
+	}
+}

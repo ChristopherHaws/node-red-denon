@@ -1,5 +1,5 @@
 {
-	"name": "node-red-contrib-denon-avr",
+	"name": "@chaws/node-red-denon",
 	"version": "0.0.1",
 	"description": "Denon AVR integration for Node-RED",
 	"main": "none",
@@ -12,7 +12,7 @@
 	"license": "MIT",
 	"private": false,
 	"scripts": {
-		"clean": "shx rm -rf dist",
+		"clean": "rimraf dist",
 		"build": "npm run clean && npm run build:ts && npm run copy:html && npm run copy:icons",
 		"build:ts": "tsc",
 		"copy:html": "copyfiles -f src/nodes/*.html dist/nodes",
@@ -31,7 +31,12 @@
 	"devDependencies": {
 		"@types/node": "^14.11.4",
 		"copyfiles": "^2.4.0",
+		"rimraf": "^3.0.2",
 		"ts-node": "^9.0.0",
 		"typescript": "^4.0.3"
+	},
+	"dependencies": {
+		"@chaws/denon": "^0.0.3",
+		"telnet-client": "^1.4.6"
 	}
 }

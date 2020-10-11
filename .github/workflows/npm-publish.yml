@@ -50,7 +50,7 @@ jobs:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
           always-auth: true
-          scope: '@chaws'
+          scope: '@ChristopherHaws'
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: npm publish --access public

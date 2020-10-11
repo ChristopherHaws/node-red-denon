@@ -34,7 +34,7 @@ jobs:
           always-auth: true
       - run: yarn install --frozen-lockfile
       - run: yarn build
-      - run: yarn publish
+      - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
@@ -51,6 +51,6 @@ jobs:
           always-auth: true
       - run: yarn install --frozen-lockfile
       - run: yarn build
-      - run: yarn publish
+      - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

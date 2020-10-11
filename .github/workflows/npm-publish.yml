@@ -35,7 +35,7 @@ jobs:
           scope: '@chaws'
       - run: yarn install --frozen-lockfile
       - run: yarn build
-      - run: npm publish --access public
+      - run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
@@ -53,6 +53,6 @@ jobs:
           scope: '@ChristopherHaws'
       - run: yarn install --frozen-lockfile
       - run: yarn build
-      - run: npm publish --access public
+      - run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

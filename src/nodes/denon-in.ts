@@ -1,18 +1,50 @@
-// import { denon } from "denon-avr";
+import { NodeInitializer, NodeConstructor, NodeDef, Node  } from 'node-red';
+import { DenonConnectionNode } from './denon-connection';
 
-// const denon = require('denon-avr');
-import { DenonAVR } from '@chaws/denon';
+interface DenonInProperties {
+	defKey: string;
+	connection: string;
+}
 
-// console.log(denon);
+interface DenonCredentials {
+}
 
+interface DenonInNode extends Node<DenonCredentials> {
+	instanceKey: string;
+}
 
-// var avr = new denon(new denon.transports.telnet({
-// 	host: '192.168.1.9',
-// 	debug: true
-// }));
+interface DenonInNodeDef extends NodeDef, DenonInProperties { }
 
-// avr.on('connect', function () {
-// 	// now connected
-// 	// all commands to be placed here
-// 	console.log('Connected!');
-// });
+const DenonIn: NodeInitializer = function (RED) {
+	const DenonInNode: NodeConstructor<DenonInNode, DenonInNodeDef, DenonCredentials> = function (config) {
+		RED.nodes.createNode(this, config);
+
+		const connection = RED.nodes.getNode(config.connection) as DenonConnectionNode;
+
+		connection.denon.on('connected', () => {
+			this.status('Connected');
+		});
+		
+		connection.denon.on('disconnected', () => {
+			this.status('Disconnected');
+		});
+		
+		
+		connection.denon.on('raw', data => {
+			this.send({
+				payload: {
+					event: 'raw',
+					data: data
+				}
+			});
+		});
+
+		this.on('close', () => {
+			this.status('Disconnected');
+		});
+	};
+
+	RED.nodes.registerType("denon-in", DenonInNode);
+}
+
+module.exports = DenonIn;

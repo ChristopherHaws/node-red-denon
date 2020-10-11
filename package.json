@@ -25,18 +25,20 @@
 	],
 	"node-red": {
 		"nodes": {
+			"denon-connection": "dist/denon-connection.js",
 			"denon-in": "dist/denon-in.js"
 		}
 	},
 	"devDependencies": {
 		"@types/node": "^14.11.4",
+		"@types/node-red": "^1.1.1",
 		"copyfiles": "^2.4.0",
 		"rimraf": "^3.0.2",
 		"ts-node": "^9.0.0",
 		"typescript": "^4.0.3"
 	},
 	"dependencies": {
-		"@chaws/denon": "^0.0.3",
+		"@chaws/denon": "^0.0.5",
 		"telnet-client": "^1.4.6"
 	}
 }

@@ -20,31 +20,43 @@ const DenonIn: NodeInitializer = function (RED) {
 		RED.nodes.createNode(this, config);
 
 		const connection = RED.nodes.getNode(config.connection) as DenonConnectionNode;
-		
-		this.status(connection.state === 'connected' ? 'Connected' : 'Connecting...');
+		this.status(!connection.connected ? 'Connected' : 'Connecting...');
 
-		connection.denon.on('connected', () => {
+		connection.on('connected' as any, () => {
 			this.status('Connected');
 		});
 		
-		connection.denon.on('disconnected', () => {
-			this.status('Disconnected (disc)');
+		connection.on('disconnected' as any, () => {
+			this.status('Disconnected');
 		});
 
-		connection.denon.on('raw', data => {
-			this.send({ payload: { event: 'raw', data: data } });
-		});
+		const run = async () => {
+			try {	
+				const client = await connection.getClient();
+				this.status('Connected');
 
-		connection.denon.on('mainZoneOn', () => {
-			this.send({ payload: { event: 'mainZoneOn' } });
-		});
+				client.on('raw', data => {
+					this.send({ payload: { event: 'raw', data: data } });
+				});
+				
+				client.on('mainZoneOn', () => {
+					this.send({ payload: { event: 'mainZoneOn' } });
+				});
+	
+				client.on('mainZoneOff', () => {
+					this.send({ payload: { event: 'mainZoneOff' } });
+				});
+			} catch (err) {
+				this.error('Failed to connect to denon receiver', err);
+				this.status('Disconnected');
+			}
+		}
 
-		connection.denon.on('mainZoneOff', () => {
-			this.send({ payload: { event: 'mainZoneOff' } });
-		});
+		run();
 
 		this.on('close', () => {
-			this.status('Disconnected (close)');
+			this.log('Closed');
+			this.status('Disconnected');
 		});
 	};
 

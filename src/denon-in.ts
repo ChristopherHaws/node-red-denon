@@ -20,27 +20,31 @@ const DenonIn: NodeInitializer = function (RED) {
 		RED.nodes.createNode(this, config);
 
 		const connection = RED.nodes.getNode(config.connection) as DenonConnectionNode;
+		
+		this.status(connection.state === 'connected' ? 'Connected' : 'Connecting...');
 
 		connection.denon.on('connected', () => {
 			this.status('Connected');
 		});
 		
 		connection.denon.on('disconnected', () => {
-			this.status('Disconnected');
+			this.status('Disconnected (disc)');
 		});
-		
-		
+
 		connection.denon.on('raw', data => {
-			this.send({
-				payload: {
-					event: 'raw',
-					data: data
-				}
-			});
+			this.send({ payload: { event: 'raw', data: data } });
+		});
+
+		connection.denon.on('mainZoneOn', () => {
+			this.send({ payload: { event: 'mainZoneOn' } });
+		});
+
+		connection.denon.on('mainZoneOff', () => {
+			this.send({ payload: { event: 'mainZoneOff' } });
 		});
 
 		this.on('close', () => {
-			this.status('Disconnected');
+			this.status('Disconnected (close)');
 		});
 	};
 

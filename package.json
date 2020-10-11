@@ -15,8 +15,9 @@
 		"clean": "rimraf dist",
 		"build": "npm run clean && npm run build:ts && npm run copy:html && npm run copy:icons",
 		"build:ts": "tsc",
-		"copy:html": "copyfiles -f src/nodes/*.html dist/nodes",
-		"copy:icons": "copyfiles -f src/nodes/icons/* dist/nodes/icons",
+		"copy:html": "copyfiles -f src/*.html dist",
+		"copy:icons": "copyfiles -f src/icons/* dist/icons",
+		"watch": "tsc --watch",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"pub": "npm run clean && npm run build && npm publish --registry https://registry.npmjs.org/"
 	},

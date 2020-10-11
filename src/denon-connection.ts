@@ -2,7 +2,7 @@ import { DenonAVR } from '@chaws/denon';
 import * as NodeRed from 'node-red';
 
 interface Properties {
-	host: string;
+	address: string;
 	port?: number;
 }
 
@@ -21,7 +21,7 @@ const DenonConnectionInitializer: NodeRed.NodeInitializer = function (RED) {
 	const DenonConnectionNodeConstructor: NodeRed.NodeConstructor<DenonConnectionNode, NodeDef, Credentials> = function (nodeDef) {
 		this.state = 'disconnected';
 		this.denon = this.denon ?? new DenonAVR({
-			host: nodeDef.host,
+			host: nodeDef.address,
 			port: nodeDef.port
 		});
 
@@ -53,7 +53,7 @@ const DenonConnectionInitializer: NodeRed.NodeInitializer = function (RED) {
 		});
 	};
 
-	RED.nodes.registerType("denon-in", DenonConnectionNodeConstructor);
+	RED.nodes.registerType("denon-connection", DenonConnectionNodeConstructor);
 }
 
 module.exports = DenonConnectionInitializer;

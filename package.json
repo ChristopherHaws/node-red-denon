@@ -1,12 +1,12 @@
 {
 	"name": "@chaws/node-red-denon",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Denon AVR integration for Node-RED",
 	"main": "none",
-	"repository": "https://github.com/ChristopherHaws/node-red-contrib-denon-avr.git",
-	"homepage": "https://github.com/ChristopherHaws/node-red-contrib-denon-avr#readme",
+	"repository": "https://github.com/ChristopherHaws/node-red-denon.git",
+	"homepage": "https://github.com/ChristopherHaws/node-red-denon#readme",
 	"bugs": {
-		"url": "https://github.com/ChristopherHaws/node-red-contrib-denon-avr/issues"
+		"url": "https://github.com/ChristopherHaws/node-red-denon/issues"
 	},
 	"author": "ChristopherHaws",
 	"license": "MIT",

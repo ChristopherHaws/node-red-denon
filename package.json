@@ -1,6 +1,6 @@
 {
 	"name": "@chaws/node-red-denon",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "Denon AVR integration for Node-RED",
 	"main": "none",
 	"repository": "https://github.com/ChristopherHaws/node-red-denon.git",
